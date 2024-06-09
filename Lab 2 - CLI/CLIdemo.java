@@ -1,12 +1,17 @@
 package com.mybank.tui;
 
+import com.mybank.data.DataSource;
 import com.mybank.domain.Bank;
 import com.mybank.domain.CheckingAccount;
 import com.mybank.domain.Customer;
 import com.mybank.domain.SavingsAccount;
+
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.jline.reader.*;
 import org.jline.reader.impl.completer.*;
@@ -141,12 +146,10 @@ public class CLIdemo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        Locale.setDefault(new Locale("en", "us"));
 
-        Bank.addCustomer("John", "Doe");
-        Bank.addCustomer("Fox", "Mulder");
-        Bank.getCustomer(0).addAccount(new CheckingAccount(2000));
-        Bank.getCustomer(1).addAccount(new SavingsAccount(1000, 3));
+        new DataSource("./data/test.dat").loadData();
 
         CLIdemo shell = new CLIdemo();
         shell.init();
